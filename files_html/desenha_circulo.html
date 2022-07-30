@@ -1,0 +1,30 @@
+<meta charset="UTF-8">
+<canvas width="1200" height="800"></canvas>
+
+<script>
+
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d');
+
+    function desenhaCirculo(x, y, raio, cor) {
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    function desenhaFlor(x, y) {
+        if (x < 150){
+            document.write("<br>Valor do X não pode ser menor que 150.");
+        } else {
+            desenhaCirculo(x, y - 100, 50, 'darkgreen');
+            desenhaCirculo(x, y, 50, 'red');
+            desenhaCirculo(x, y + 100, 50, 'grey');
+            desenhaCirculo(x - 100, y, 50, 'orange');
+            desenhaCirculo(x + 100, y, 50, 'lightblue');
+        }
+    }
+
+    desenhaFlor(150,150);
+    desenhaFlor(450,150);
+</script>

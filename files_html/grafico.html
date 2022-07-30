@@ -1,0 +1,42 @@
+<meta charset="UTF-8">
+<canvas width="800" height="800"></canvas>
+
+<script>
+    let serie2015 = [50, 25, 20, 5];
+    let serie2016 = [65, 20, 13, 2];
+    let cores = ['blue', 'green', 'yellow', 'red'];
+
+    function desenhaQuadrado(x, y, width, height, color) {
+        let tela = document.querySelector('canvas');
+        let pincel = tela.getContext('2d');
+
+        pincel.fillStyle = color;
+        pincel.fillRect(x, y, width, height);
+        pincel.strokeStyle = 'black';
+        pincel.strokeRect(x, y, width, height);
+    }
+
+    function texto(text, x, y) {
+        let tela = document.querySelector('canvas');
+        let pincel = tela.getContext('2d');
+
+        pincel.font = '20px Georgia';
+        pincel.fillStyle = 'black';
+        pincel.fillText(text, x, y);
+    }
+
+    function desenhaGrafico(x, y, serie, cores, text) {
+        texto(text, x, y - 10);
+        let somaAltura = 0;
+
+        for (let i = 0; i < serie.length; i++) {
+            let altura = serie[i] * 5;
+            desenhaQuadrado(x, y + somaAltura, 100, altura, cores[i]);
+            somaAltura = somaAltura + altura;
+        }
+    }
+
+    desenhaGrafico(50, 50, serie2015, cores, '2015');
+    desenhaGrafico(300, 50, serie2016, cores, '2016');
+
+</script>
