@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+<canvas width="1200" height="800"></canvas>
+
+<script>
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d');
+    let cores = ['yellow', 'red', 'darkgreen', 'blue', 'pink'];
+
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 1200, 800);
+
+    pincel.fillStyle = 'black';
+
+    function texto(text, x, y) {
+        let tela = document.querySelector('canvas');
+        let pincel = tela.getContext('2d');
+
+        pincel.font = '20px Georgia';
+        pincel.fillStyle = 'black';
+        pincel.fillText(text, x, y);
+    }
+
+    function mudaCor() {
+        let selectColor = cores.length - 1;
+        if (selectColor - 1 < 0) {
+            selectColor = selectColor + 1;
+        }
+        let cor = Math.round(Math.random() * selectColor);
+        console.log(cor + ': ' + cores[cor]);
+        pincel.fillStyle = cores[cor];
+        return false;
+    }
+
+    function desenhaCirculo(event) {
+        let x = event.pageX - tela.offsetLeft;
+        let y = event.pageY - tela.offsetTop;
+        pincel.beginPath();
+        pincel.arc(x, y, 10, 0, 2 * Math.PI);
+        pincel.fill();
+        console.log('x: ' + x + ', y: ' + y);
+    }
+
+    texto("Clique com o botão direito do mouse para gerar uma cor aleatória!", 10, 30);
+    tela.oncontextmenu = mudaCor;
+    tela.onclick = desenhaCirculo;
+</script>

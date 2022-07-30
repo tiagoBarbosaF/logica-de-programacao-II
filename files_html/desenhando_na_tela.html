@@ -1,0 +1,51 @@
+<meta charset="UTF-8">
+<h1>Escolha uma cor</h1>
+<label>
+    <input type="color">
+</label>
+<br><br>
+<canvas width="1200" height="800"></canvas>
+
+<script>
+    let tela = document.querySelector('canvas');
+    let corEscolhida = document.querySelector('input');
+    let pincel = tela.getContext('2d');
+    let desenho = false;
+    console.log(corEscolhida.value);
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 1200, 800);
+
+    function texto(text, x, y) {
+        let tela = document.querySelector('canvas');
+        let pincel = tela.getContext('2d');
+
+        pincel.font = '20px Georgia';
+        pincel.fillStyle = 'black';
+        pincel.fillText(text, x, y);
+    }
+    texto("Segure o botão esquerdo do mouse para continuar desenhando!", 10, 30);
+
+    function ativaDesenho() {
+        desenho = true;
+    }
+
+    function desativaDesenho() {
+        desenho = false;
+    }
+
+    function desenhaCirculo(event) {
+        if (desenho) {
+            let x = event.pageX - tela.offsetLeft;
+            let y = event.pageY - tela.offsetTop;
+            pincel.fillStyle = corEscolhida.value;
+            pincel.beginPath();
+            pincel.arc(x, y, 10, 0, 2 * Math.PI);
+            pincel.fill();
+        }
+        console.log('x: ' + x + ', y: ' + y);
+    }
+
+    tela.onmousedown = () => desenho = true;
+    tela.onmouseup = () => desenho = false;
+    tela.onmousemove = desenhaCirculo;
+</script>

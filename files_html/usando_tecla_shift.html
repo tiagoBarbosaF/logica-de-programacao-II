@@ -1,0 +1,49 @@
+<meta charset="UTF-8">
+<canvas width="1200" height="800"></canvas>
+
+<script>
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d');
+    let raio = 10;
+
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 1200, 800);
+
+    pincel.fillStyle = 'black';
+
+    function texto(text, x, y) {
+        let tela = document.querySelector('canvas');
+        let pincel = tela.getContext('2d');
+
+        pincel.font = '20px Georgia';
+        pincel.fillStyle = 'black';
+        pincel.fillText(text, x, y);
+    }
+
+    function desenhaCirculo(event) {
+        let x = event.pageX - tela.offsetLeft;
+        let y = event.pageY - tela.offsetTop;
+        pincel.beginPath();
+        if (event.shiftKey) {
+            if (raio <= 40) {
+                raio = raio + 10;
+            } else if (raio < 10) {
+                raio = 10;
+            }
+        }
+
+        if (event.altKey) {
+            if (raio <= 10) {
+                raio = 10;
+            } else {
+                raio = raio - 5;
+            }
+        }
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+        console.log('x: ' + x + ', y: ' + y);
+    }
+
+    texto("Segure a tecla SHIFT no teclado para aumentar o raio do circulo!", 10, 30);
+    tela.onclick = desenhaCirculo;
+</script>
