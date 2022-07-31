@@ -2,10 +2,19 @@
 
 <script>
     let tela = document.querySelector('canvas');
+    let acertosTexto = document.querySelector('h2');
     let pincel = tela.getContext('2d');
     let raio = 10;
+    let xRandom;
+    let yRandom;
+    let countAcertos = 0;
+
     pincel.fillStyle = 'lightgray';
     pincel.fillRect(0, 0, 1200, 800);
+
+    function limpaTela() {
+        pincel.clearRect(0, 0, 1200, 800);
+    }
 
     function desenhaCirculo(x, y, raio, cor) {
         pincel.fillStyle = cor;
@@ -18,14 +27,30 @@
         let x = event.pageX - tela.offsetLeft;
         let y = event.pageY - tela.offsetTop;
 
-        if (x >= 270 && x <= 330 && y >= 170 && y <= 230) {
+        if (x >= xRandom - 30 && x <= xRandom + 30 && y >= yRandom - 30 && y <= yRandom + 30) {
             alert("Acertou o alvo.");
+            acertosTexto = countAcertos++;
         }
-        console.log('x: ' + x + ', y: ' + y);
+        console.log(acertosTexto);
     }
 
-    desenhaCirculo(300, 200, raio + 20, 'red');
-    desenhaCirculo(300, 200, raio + 10, 'white');
-    desenhaCirculo(300, 200, raio, 'red');
-    tela.onclick = dispara;
+    function desenhaAlvo(eixoX, eixoY) {
+        desenhaCirculo(eixoX, eixoY, raio + 20, 'red');
+        desenhaCirculo(eixoX, eixoY, raio + 10, 'white');
+        desenhaCirculo(eixoX, eixoY, raio, 'red');
+    }
+
+    function sorteiaPosicao(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    function atualizaTela() {
+        tela.onclick = dispara;
+        limpaTela();
+        xRandom = sorteiaPosicao(1200);
+        yRandom = sorteiaPosicao(800);
+        desenhaAlvo(xRandom, yRandom);
+    }
+
+    setInterval(atualizaTela, 1000);
 </script>

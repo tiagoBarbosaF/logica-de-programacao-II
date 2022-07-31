@@ -6,3 +6,4 @@
 - Extraindo funções ✅
 - Interagindo com o usuário ✅
 - Animações ✅
+- Jogo tiro ao alvo ✅
