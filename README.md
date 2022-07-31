@@ -5,3 +5,4 @@
 - Criando gráficos com `canvas` ✅
 - Extraindo funções ✅
 - Interagindo com o usuário ✅
+- Animações ✅
